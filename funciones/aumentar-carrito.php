@@ -1,8 +1,19 @@
 <?php
+
 include_once "../config/db.php";
 
-# Actualiar las existencias
+# Actualizar Carrito
+if ($_GET['id']) {
+    $id = $_GET['id'];
+    $cantidad = $_GET['cantidad'] + 1;
+    $sql = "UPDATE `carrito` SET `cantidad` = $cantidad WHERE `carrito`.`id_producto` = $id;";
+    $base_de_datos->query($sql);
+}
 
+
+
+
+# Actualiar las existencias
 if ($_GET['id']) {
     $id = $_GET['id'];
     $sql = "SELECT existencia FROM productos WHERE id=$id;";
@@ -16,13 +27,4 @@ if ($_GET['id']) {
 }
 
 
-# Actualizar Carrito
-if ($_GET['id']) {
-    $id = $_GET['id'];
-    $cantidad = $_GET['cantidad'] + 1;
-    $sql = "UPDATE `carrito` SET `cantidad` = $cantidad WHERE `carrito`.`id_producto` = $id;";
-    $base_de_datos->query($sql);
-    header("location: ../carrito.php");
-} else {
-    header("location: ../carrito.php");
-}
+header("location: ../carrito.php");
